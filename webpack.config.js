@@ -19,5 +19,13 @@ module.exports = {
   output: {
     filename: 'tacklebox.js',
     path: path.resolve(__dirname, './dist')
-  }
+  },
+  plugins: []
 };
+
+// Check if the node environment is set to production
+if (process.env.NODE_ENV === 'production') {
+  module.exports.plugins.push(
+    new webpack.optimize.UglifyJsPlugin()
+  );
+}

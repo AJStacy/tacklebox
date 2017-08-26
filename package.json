@@ -6,6 +6,7 @@
   "scripts": {
     "build": "yarn webpack",
     "build:docs": "typedoc --out ./docs/ ./src/TackleBox.ts",
+    "build:production": "NODE_ENV=production yarn webpack && typedoc --out ./docs/ ./src/TackleBox.ts",
     "watch": "yarn webpack --watch"
   },
   "repository": {
