@@ -4,7 +4,9 @@
   "description": "A small library for generating api hooks for your javascript app.",
   "main": "dist/TackleBox.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "yarn webpack",
+    "build:docs": "typedoc --out ./docs/ ./src/TackleBox.ts",
+    "watch": "yarn webpack --watch"
   },
   "repository": {
     "type": "git",
@@ -20,5 +22,13 @@
   "bugs": {
     "url": "https://github.com/AJStacy/tacklebox/issues"
   },
-  "homepage": "https://github.com/AJStacy/tacklebox#readme"
+  "homepage": "https://github.com/AJStacy/tacklebox#readme",
+  "dependencies": {
+    "ts-loader": "^2.3.4"
+  },
+  "devDependencies": {
+    "typedoc": "^0.8.0",
+    "typescript": "^2.4.2",
+    "webpack": "^3.5.5"
+  }
 }
