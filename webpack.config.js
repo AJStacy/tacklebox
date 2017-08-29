@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+var FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 
 module.exports = {
   devtool: 'inline-source-map',
@@ -8,7 +9,7 @@ module.exports = {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: ['babel-loader','ts-loader'],
         exclude: /node_modules/
       }
     ]
@@ -18,13 +19,18 @@ module.exports = {
   },
   output: {
     filename: 'tacklebox.js',
-    path: path.resolve(__dirname, './dist')
+    path: path.resolve(__dirname, './dist'),
+    library: 'TackleBox',
+    libraryTarget: 'commonjs'
   },
-  plugins: []
+  plugins: [
+    new FriendlyErrorsWebpackPlugin(),
+  ]
 };
 
 // Check if the node environment is set to production
 if (process.env.NODE_ENV === 'production') {
+  module.exports.output['libraryTarget'] = 'var';
   module.exports.plugins.push(
     new webpack.optimize.UglifyJsPlugin()
   );

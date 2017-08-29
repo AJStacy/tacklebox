@@ -2,12 +2,13 @@
   "name": "tacklebox",
   "version": "0.0.1",
   "description": "A small library for generating api hooks for your javascript app.",
-  "main": "dist/TackleBox.js",
+  "main": "dist/tacklebox.js",
   "scripts": {
     "build": "yarn webpack",
-    "build:docs": "typedoc --out ./docs/ ./src/TackleBox.ts",
-    "build:production": "NODE_ENV=production yarn webpack && typedoc --out ./docs/ ./src/TackleBox.ts",
-    "watch": "yarn webpack --watch"
+    "build:docs": "typedoc --module commonjs --target ES5 --out ./docs/ ./src/TackleBox.ts",
+    "build:production": "NODE_ENV=production yarn webpack",
+    "watch": "yarn webpack -- --watch",
+    "test": "node demo/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,10 +25,13 @@
     "url": "https://github.com/AJStacy/tacklebox/issues"
   },
   "homepage": "https://github.com/AJStacy/tacklebox#readme",
-  "dependencies": {
-    "ts-loader": "^2.3.4"
-  },
+  "dependencies": {},
   "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "friendly-errors-webpack-plugin": "^1.6.1",
+    "ts-loader": "^2.3.4",
     "typedoc": "^0.8.0",
     "typescript": "^2.4.2",
     "webpack": "^3.5.5"
