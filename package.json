@@ -1,6 +1,6 @@
 {
   "name": "tacklebox-js",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A small library for generating api hooks for your javascript app.",
   "main": "dist/tacklebox.js",
   "scripts": {
