@@ -1,7 +1,6 @@
 var TackleBox = require('../dist/tacklebox.js').TackleBox;
 var Hooks = new TackleBox.Hooks();
 
-
 var Calculator = function() {
 
   function Calculator(a, b) {
@@ -12,16 +11,16 @@ var Calculator = function() {
   Calculator.prototype.add = function() {
 
     // This hook will only be called a single time
-    var beforeAdd = Hooks.callOnce('beforeAdd', (value) => {
+    var beforeAdd = Hooks.callOnce('beforeAdd', [this.a, this.b], (value) => {
       console.log("beforeAdd = "+value);
       return value || 0;
-    }, this.a, this.b);
+    });
 
     var added = beforeAdd + this.a + this.b;
     console.log("a + b + beforeAdd = "+added+" = x");
 
     // This hook can be called an unlimited number of times
-    var afterAdd = Hooks.call('afterAdd', (values) => {
+    var afterAdd = Hooks.call('afterAdd', [added], (values) => {
 
       // Values is an accumulated array of values returned by registered hooks.
       // Here we are iterating over all of the values in the array and adding
@@ -35,7 +34,7 @@ var Calculator = function() {
 
       return added + addAdditional;
 
-    }, added);
+    });
 
     return afterAdd;
 
@@ -44,15 +43,15 @@ var Calculator = function() {
   return Calculator;
 }();
 
-Hooks.register('beforeAdd',(...args) => {
+Hooks.register('beforeAdd',(args) => {
   return 1;
 });
 
-Hooks.register('afterAdd',(...args) => {
+Hooks.register('afterAdd',(args) => {
   return 3;
 });
 
-Hooks.register('afterAdd',(...args) => {
+Hooks.register('afterAdd',(args) => {
   return 5;
 });
 
