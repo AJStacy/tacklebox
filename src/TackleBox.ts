@@ -40,8 +40,8 @@ export class Hooks {
    * @param   {Any[]}     args  The arguments to pass into the user defined callback.
    * @return  {Any}       Returns callback data if it does is not equal to "void".
    */
-  public callOnce(name:string, processor:Function, ...args:any[]):any {
-    return this.caller(processor, [this.hooks[name][0]], args);
+  public callOnce(name:string, args:any[], processor?:Function):any {
+    return this.caller([this.hooks[name][0]], args, processor);
   }
 
   /**
@@ -53,8 +53,8 @@ export class Hooks {
    * @param   {Any[]}     args  The arguments to pass into the user defined callback.
    * @return  {Any}       Returns callback data if it does is not equal to "void".
    */
-  public call(name:string, processor:Function, ...args:any[]):any {
-    return this.caller(processor, this.hooks[name], args);
+  public call(name:string, args:any[], processor?:Function):any {
+    return this.caller(this.hooks[name], args, processor);
   }
 
   /**
@@ -67,13 +67,13 @@ export class Hooks {
    * @param   {Any[]}       args        The arguments to pass into the user defined callback.
    * @return  {Any}         Returns callback data if it does is not equal to "void".
    */
-  private caller(processor:Function, hooks:Array<any>, ...args:any[]) {
+  private caller(hooks:Array<any>, args:any[], processor:Function) {
     if ( 'undefined' !== typeof hooks ) {
       var values = hooks.reduce((acc:any[], hook:Function, index:number) => {
         acc.push(hook(args));
         return acc;
       },[]);
-      return processor( (values.length > 1 ? values : values[0]) );
+      if (processor) return processor( (values.length > 1 ? values : values[0]) );
     }
   }
 
